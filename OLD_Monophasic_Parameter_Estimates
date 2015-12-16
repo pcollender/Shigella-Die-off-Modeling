@@ -1,0 +1,12 @@
+model{
+	for (i in 1:Nobs){
+		ln_Conc[i]~dnorm(Concmu[i], Prec[i])
+		Concmu[i]<-A+B*Time[i]
+		}
+	A~dnorm(mu.A,tau.A)
+	B~dnorm(mu.B,tau.B)
+	mu.A~dnorm(0,1.E-6)
+	mu.B~dnorm(0,1.E-6)
+	tau.A~dgamma(0.000001,0.000001)
+	tau.B~dgamma(0.000001,0.000001)
+	}
