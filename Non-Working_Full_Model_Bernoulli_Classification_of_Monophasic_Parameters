@@ -1,0 +1,69 @@
+model{
+
+#Observation Level
+for (i in 1:Nobs){
+	#Uncertainties
+	ln_Conc[i]~dnorm(ln_concmu[i], concPrec[i])
+	
+	#Interrelationships
+	ln_concmu[i]<-ln_Conc0[Exp[i]]+log(alpha[Exp[i]]*exp(-k1[Exp[i]]*Time[i])+(1-alpha[Exp[i]])*exp(-k2[Exp[i]]*Time[i]))
+	
+	}
+#Experiment Level
+for (j in 1:Nexps){
+	#Uncertainties
+	ln_Conc0[j]~dnorm(mu.ln_Conc0[j], tau.ln_Conc0[j])
+	k1[j]~dnorm(mu.k1[j],tau.k1[j])
+	k2[j]~dnorm(mu.k2[j],tau.k2[j])
+		
+	#Interrelationships
+	mu.k1[j]<-k1_20[Stud[j]]*exp(lambda1[Stud[j]]*(Temp[j]-20))
+	mu.k2[j]<-k2_20[Stud[j]]*exp(lambda2[Stud[j]]*(Temp[j]-20))
+
+
+	#Experiment level priors
+	mu.ln_Conc0[j]~dnorm(0,1.E-6)
+
+	tau.ln_Conc0[j]~dgamma(1.E-6,1.E-6)
+	tau.k1[j]~dgamma(1.E-6,1.E-6)
+	tau.k2[j]~dgamma(1.E-6,1.E-6)
+	}
+for (j in 1:Nexpsbiph){
+	alpha[j]~dbeta(alpha.alpha[Stud[j]], beta.alpha[Stud[j]])
+	}
+for (j in Monoexpstart:Nexps){
+	alpha[j]~dbern(theta.alpha[Stud[j]])
+	}
+
+#Study Level
+for (k in 1:Nstud){
+	#Uncertainties
+	k1_20[k]~dnorm(mu.k1_20,tau.k1_20)
+	lambda1[k]~dnorm(mu.lambda1,tau.lambda1)
+	k2_20[k]~dnorm(mu.k2_20,tau.k2_20)
+	lambda2[k]~dnorm(mu.lambda2,tau.lambda2)
+	}
+
+#Study level Priors
+for (k in 1:NStudBiph){
+	alpha.alpha[k]~dunif(1,20)
+	beta.alpha[k]~dunif(1,20)
+
+	}
+for (k in Monostudstart:Nstud){
+	theta.alpha[k]~dbeta(alph,bet)
+	}
+
+#Universal priors	
+mu.k1_20~dnorm(0,1.E-6)
+mu.k2_20~dnorm(0,1.E-6)
+mu.lambda1~dnorm(0,1.E-6)
+mu.lambda2~dnorm(0,1.E-6)
+
+tau.k1_20~dgamma(1.E-6,1.E-6)
+tau.k2_20~dgamma(1.E-6,1.E-6)
+tau.lambda1~dgamma(1.E-6,1.E-6)
+tau.lambda2~dgamma(1.E-6,1.E-6)
+alph~dunif(1,20)
+bet~dunif(1,20)
+}
