@@ -1,0 +1,24 @@
+#Cerf Biphasic Model With Rough Imputed Concentration Variability
+
+model{
+	for (i in 1:Nobs){
+		ln_Conc[i]~dnorm(Concmu[i], Prec[i])
+		Concmu[i]<-A+log(alpha*exp(Time[i]*K1)+(1-alpha)*exp(Time[i]*(K1+exp(diff)/10)))
+
+		}
+	A~dnorm(mu.A,tau.A)
+	logit(alpha)<-(K2-K1)*Chgpt
+	K1~dnorm(mu.K1,tau.K1)
+	K2<-K1+exp(diff)/10
+	diff~dlnorm(mu.K2,tau.K2)
+
+	mu.A~dnorm(0,1.E-5)
+	tau.A~dgamma(1.E-5,1.E-5)
+	mu.K1~dnorm(0,1.E-5)
+	tau.K1~dgamma(1.E-5,1.E-5)
+  	mu.K2~dnorm(0,1.E-5)
+	tau.K2~dgamma(1.E-5,1.E-5)
+	
+	Chgpt~dunif(Chgpt_lower,Chgpt_upper)
+
+	}
