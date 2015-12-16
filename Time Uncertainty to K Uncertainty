@@ -1,0 +1,9 @@
+model{
+K<--log(0.1)/TNINETY
+TNINETY~dnorm(mu,tau)
+tau<-1/pow(SD,2)
+Klog<-log(K)
+Ksqrt<-pow(K,0.5)
+}
+
+list(mu=3.47222E-5,SD=6.01407E-6)
