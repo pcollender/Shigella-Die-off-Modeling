@@ -24,7 +24,7 @@ likely to be held constant throughout a study. There is an attempt at preventing
 parameters for biphasic die-off) by restricting k2_20 to always be less than k1_20 (the value of k2 and k1 at 20 degrees C, respectively). 
 Initial runs indicate better parameter estimation than the preceding model, but poor mixing for many parameter estimation chains in JAGS. 
 It appears that k1 and k2 are both over-estimated, which implies that the changepoint (based on the third derivative of the biphasic equation
-with respect to alpha) may need to be restricted.
+with respect to time) may need to be restricted.
 
 ####Non-Working_Full_Model_Bernoulli_Classification_of_Monophasic_Parameters.txt
 
@@ -48,7 +48,7 @@ Old model for estimating biphasic die-off parameters for single experiments. The
 for attaining good estimates. First, k2 was parameterized as k1 + positive number e^diff, to prevent label switching between the rate
 parameters. Second, alpha was specified as a function of k1, k2, and Chgpt, which corresponds to the coordinate of the maximum rate of 
 change in slope, or the vertex of the biphasic function, and is based off a third derivative of the biphasic die-off function with
-respect to alpha. Chgpt was drawn from a uniform distribution, whose bounds were chosen to reflect the investigator's beliefs about the 
+respect to time. Chgpt was drawn from a uniform distribution, whose bounds were chosen to reflect the investigator's beliefs about the 
 range in which the vertex should lie.
 
 ###Log of Temperature Parameter Estimates
