@@ -24,8 +24,11 @@ for (j in 1:Nexps){
 	ln_Conc0[j]~dnorm(mu.ln_Conc0[j], tau.ln_Conc0[j])
 		
 	#Interrelationships
-	k1[j]<-k1_20*exp(lambda1*(Temp[j]-20))+Errk1[Stud[j]]
-	k2[j]<-k2_20*exp(lambda2*(Temp[j]-20))+Errk2[Stud[j]]
+	k1[j]<-k1_20*exp(lambda1*(Temp[j]-20))+Errk1[j]
+	k2[j]<-k2_20*exp(lambda2*(Temp[j]-20))+Errk2[j]
+	
+	Errk1~dnorm(mu.Errk1[Stud[j]],1.E-1)
+	Errk2~dnorm(mu.Errk2[Stud[j]],1.E-1)
 	}
 for (j in 1:Nexpsbiph){
 	alpha[j]~dbeta(alpha.alpha[Stud[j]], beta.alpha[Stud[j]])
@@ -36,8 +39,8 @@ for (j in Monoexpstart:Nexps){
 
 #Study level priors
 for (k in 1:Nstud){
-	Errk1[k]~dnorm(0,1.E-1)
-	Errk2[k]~dnorm(0,1.E-1)
+	muErrk1[k]~dnorm(0,1.E-3)
+	muErrk2[k]~dnorm(0,1.E-3)
 	}
 for (k in 1:NStudBiph){
 	alpha.alpha[k]~dunif(1,20)
