@@ -106,7 +106,7 @@ datagen<-function(){
   mulambda1<-as.numeric(readline(prompt='Provide the multiplicative effect of a degree increase in temperature on the fast rate parameter (e^x, sugg x=0.01,0.1,1): \n'))
   mulambda2<-as.numeric(readline(prompt='Provide the multiplicative effect of a degree increase in temperature on the slower rate parameter (e^x, sugg x=0.001,0.01,0.1): \n'))
   
-  muk1_ref<-as.numeric(readline(prompt='Provide the mean value of the fast rate parameter at the minimum tempearture (sugg 0.2-2): \n'))
+  muk1_ref<-as.numeric(readline(prompt='Provide the mean value of the fast rate parameter at the minimum temperature (sugg 0.2-2): \n'))
   muk2_ref<-as.numeric(readline(prompt='Provide the mean value of the slower rate parameter at the minimum temperature (sugg 0.02-0.2): \n'))
   
   mgnstuderr<-readline(prompt='Should the magnitude of study level error be extra large, large, medium, small, or extra small with respect to the mean values (xl, l, m, s, xs)? \n')
