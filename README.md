@@ -8,6 +8,8 @@ program funded by the Fogarty International Center (grant R01TW010286), the Nati
 Per the terms of this license, if you are making derivative use of this work, you must identify that your work is a derivative work, 
 give credit to the original work, provide a link to the license, and indicate changes that were made.
 
+___
+
 This branch contains BUGS/JAGS models that are intended to provide robust estimates of parameters describing the effect of temperature
 on die-off of pathogenic bacteria by integrating data across various studies. The content presented here is split between models currently
 under development, models developed in previous phases of our research, and a couple of incidental pieces of code. The newer models 
