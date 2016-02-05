@@ -8,6 +8,8 @@ program funded by the Fogarty International Center (grant R01TW010286), the Nati
 Per the terms of this license, if you are making derivative use of this work, you must identify that your work is a derivative work, 
 give credit to the original work, provide a link to the license, and indicate changes that were made.
 
+___
+
 This branch contains R scripts to generate and process pathogen die-off data in preparation for Bayesian modeling.
 Module descriptions are shown below:
 
