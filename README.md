@@ -5,6 +5,9 @@ This work was supported in part by the National Institutes of Health/National Sc
 program funded by the Fogarty International Center (grant R01TW010286), the National Institute of Allergy and Infectious Diseases 
 (grant K01AI091864), and the National Science Foundation Water Sustainability and Climate Program (grant 1360330).
 
+Per the terms of this license, if you are making derivative use of this work, you must identify that your work is a derivative work, 
+give credit to the original work, provide a link to the license, and indicate changes that were made.
+
 This branch contains BUGS/JAGS models that are intended to provide robust estimates of parameters describing the effect of temperature
 on die-off of pathogenic bacteria by integrating data across various studies. The content presented here is split between models currently
 under development, models developed in previous phases of our research, and a couple of incidental pieces of code. The newer models 
