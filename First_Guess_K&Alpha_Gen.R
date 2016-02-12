@@ -16,7 +16,7 @@ source ('Exp_Data_Reader.R')
 
 attach (mexp)
 layout(1)
-torun = unique(mexp$Exp)
+torun = unique(as.character(mexp$Exp))
 
 Fits=list()
 Studs=NA
@@ -28,6 +28,7 @@ alpha_Init=NA
 K_Lin_Init=NA
 Chgpt_Init=NA
 Chgpt.L=NA
+MntEnd=NA
 
 #Use CPest(alpha,k1,k2) at prompts to estimate changepoint from nls trace
 s=readline(prompt='Start from which experiment?  \n')
@@ -46,6 +47,8 @@ for (i in s:stp){
   alpha_Init[i]=NA
   Chgpt_Init[i]=NA
   Chgpt.L[i]=NA
+  MntEnd[i]=as.numeric(readline(prompt='At which plotted point does die-off begin? (e.g. if 1st point, enter 1, if 2nd point, enter 2, etc)  \n'))
+  MntEnd[i]=mexp$Time[mexp$Exp==torun[i]][MntEnd]
   if(length(Fits[[i]][[2]])>1){
     Type[i]=1
     K1_Init[i]=Fits[[i]][[2]][3,1]
@@ -71,6 +74,6 @@ for (i in s:stp){
   }else(readline(prompt='Hit enter to continue'))
 }
 
-kdat<-data.frame('Stud'=Studs,'Exp'=torun,'Temp'=Tempr,K_Lin_Init,K1_Init,K2_Init,alpha_Init,Chgpt_Init,Chgpt.L)
-write.csv(kdat, 'current_Kdat.csv',row.names=FALSE)
+kdat<-data.frame('Stud'=Studs,'Exp'=torun,'Temp'=Tempr,K_Lin_Init,K1_Init,K2_Init,alpha_Init,Chgpt_Init,Chgpt.L,MntEnd)
+write.csv(kdat, paste('current_Kdat.csv', chooz, sep=''),row.names=FALSE)
 rm(list=c('s','stp','Studs','Tempr','K_Lin_Init','K1_Init','K2_Init','alpha_Init','Chgpt_Init','Chgpt.L','check','chuck','Chgconc','Chglconc','Time','lnConc','newdat','Fits','torun','Type'))
