@@ -19,4 +19,4 @@ if(chooz=='o'){
   nom=readline(prompt='Paste file name for observed dataset: \n')
   mexp = read.csv (nom)}
 
-rm(list=c('chooz', 'nom'))
+rm(list=c('nom'))
