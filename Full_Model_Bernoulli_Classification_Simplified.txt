@@ -30,11 +30,12 @@ for (j in 1:Nexps){
 	k1[j]<-k1_20*exp(lambda1*(Temp[j]-20))+Errk1[j]
 	k2[j]<-k2_20*exp(lambda2*(Temp[j]-20))+Errk2[j]
 	
-	Errk1~dnorm(mu.Errk1[Stud[j]],1.E-1)
-	Errk2~dnorm(mu.Errk2[Stud[j]],1.E-1)
+	Errk1[j]~dnorm(mu.Errk1[Stud[j]],1E-1)
+	Errk2[j]~dnorm(mu.Errk2[Stud[j]],1E-1)
 	}
 for (j in 1:Nexpsbiph){
-	alpha[j]~dbeta(alpha.alpha[Stud[j]], beta.alpha[Stud[j]])
+	logit(alpha[j])<-(k1[j]-k2[j])*Chgpt
+	Chgpt[j]~dunif(Chgpt.L[j],Chgpt.U[j])
 	}
 for (j in Monoexpstart:Nexps){
 	alpha[j]~dbern(theta.alpha[Stud[j]])
@@ -42,12 +43,8 @@ for (j in Monoexpstart:Nexps){
 
 #Study level priors
 for (k in 1:Nstud){
-	muErrk1[k]~dnorm(0,1.E-3)
-	muErrk2[k]~dnorm(0,1.E-3)
-	}
-for (k in 1:NStudBiph){
-	alpha.alpha[k]~dunif(1,20)
-	beta.alpha[k]~dunif(1,20)
+	mu.Errk1[k]~dnorm(0,1.E-3)
+	mu.Errk2[k]~dnorm(0,1.E-3)
 	}
 for (k in Monostudstart:Nstud){
 	theta.alpha[k]~dbeta(1,1)
@@ -61,4 +58,5 @@ delta~dnorm(0,1.E-6)
 lambda1~dnorm(0,1.E-6)
 lambda2~dnorm(0,1.E-6)
 }
+
 
