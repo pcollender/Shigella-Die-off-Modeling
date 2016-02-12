@@ -33,7 +33,7 @@ Chgpt.L=NA
 s=readline(prompt='Start from which experiment?  \n')
 s=which(torun==s)
 stp=readline(prompt='Run up to which experiment?  \n')
-stp=which(torun=stp)
+stp=which(torun==stp)
              
 for (i in s:stp){
   Studs[i]=min(mexp$Stud[mexp$Exp==torun[i]])
