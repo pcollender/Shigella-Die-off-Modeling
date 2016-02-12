@@ -53,13 +53,14 @@ for (i in s:stp){
     Type[i]=1
     K1_Init[i]=Fits[[i]][[2]][3,1]
     K2_Init[i]=Fits[[i]][[2]][4,1]
+    Intercept=Fits[[i]][[2]][1,1]
     alpha_Init[i]=Fits[[i]][[2]][2,1]
     Chgpt_Init[i]=log(alpha_Init[i]/(1-alpha_Init[i]))/(K1_Init[i]-K2_Init[i])
     Chgconc=lnConc[1]+log(alpha_Init[i]*exp(-K1_Init[i]*Chgpt_Init[i])+(1-alpha_Init[i])*exp(-K2_Init[i]*Chgpt_Init[i]))
     layout(1)
     check=1
     while(check==1){
-      plot(newdat$Time,lnConc[1]+log(alpha_Init[i]*exp(-K1_Init[i]*newdat$Time)+(1-alpha_Init[i])*exp(-K2_Init[i]*newdat$Time)),
+      plot(newdat$Time,Intercept+log(alpha_Init[i]*exp(-K1_Init[i]*newdat$Time)+(1-alpha_Init[i])*exp(-K2_Init[i]*newdat$Time)),
            type='l',xlab='Time',ylab='Ln(Concentration)',ylim=c(min(lnConc),max(lnConc)),xlim=c(min(newdat$Time),max(newdat$Time)))+
         points(mexp$Time[mexp$Exp==torun[i]],lnConc)+points(Chgpt_Init[i],Chgconc, pch=16,col='blue')+text(Chgpt_Init[i],Chgconc,'Estimated Change Point',pos=1)
       check=0
@@ -78,4 +79,4 @@ K_Lin_Init=-K_Lin_Init
 
 kdat<-data.frame('Stud'=Studs,'Exp'=torun[1:stp],'Temp'=Tempr,K_Lin_Init,K1_Init,K2_Init,alpha_Init,Chgpt_Init,Chgpt.L,MntEnd,Type)
 write.csv(kdat, paste('current_Kdat_', chooz,'.csv', sep=''),row.names=FALSE)
-rm(list=c('s','stp','Studs','Tempr','K_Lin_Init','K1_Init','K2_Init','alpha_Init','Chgpt_Init','Chgpt.L','check','chuck','Chgconc','Chglconc','Time','lnConc','newdat','Fits','torun','Type'))
+rm(list=c('s','stp','Studs','Tempr','K_Lin_Init','K1_Init','K2_Init','alpha_Init','Chgpt_Init','Chgpt.L','check','chuck','Chgconc','Chglconc','Time','lnConc','newdat','Fits','torun','Type','Intercept'))
