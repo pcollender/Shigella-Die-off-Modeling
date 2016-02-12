@@ -56,6 +56,10 @@ CerfReg=function(Data,Exper){
       }
       if(Check1=='n'){
         Check2=readline(prompt='Save initial guess parameters to pass on to MCMC? (y or n) \n')
+        if(Check2=='n'){
+        Xest=NULL
+        Yest=NULL
+        }
       } 
     }
   }
