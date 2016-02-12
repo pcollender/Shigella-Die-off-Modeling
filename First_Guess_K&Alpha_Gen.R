@@ -48,7 +48,7 @@ for (i in s:stp){
   Chgpt_Init[i]=NA
   Chgpt.L[i]=NA
   MntEnd[i]=as.numeric(readline(prompt='At which plotted point does die-off begin? (e.g. if 1st point, enter 1, if 2nd point, enter 2, etc)  \n'))
-  MntEnd[i]=mexp$Time[mexp$Exp==torun[i]][MntEnd]
+  MntEnd[i]=mexp$Time[mexp$Exp==torun[i]][MntEnd[i]]
   if(length(Fits[[i]][[2]])>1){
     Type[i]=1
     K1_Init[i]=Fits[[i]][[2]][3,1]
@@ -74,6 +74,8 @@ for (i in s:stp){
   }else(readline(prompt='Hit enter to continue'))
 }
 
-kdat<-data.frame('Stud'=Studs,'Exp'=torun,'Temp'=Tempr,K_Lin_Init,K1_Init,K2_Init,alpha_Init,Chgpt_Init,Chgpt.L,MntEnd)
-write.csv(kdat, paste('current_Kdat.csv', chooz, sep=''),row.names=FALSE)
+K_Lin_Init=-K_Lin_Init
+
+kdat<-data.frame('Stud'=Studs,'Exp'=torun[1:stp],'Temp'=Tempr,K_Lin_Init,K1_Init,K2_Init,alpha_Init,Chgpt_Init,Chgpt.L,MntEnd,Type)
+write.csv(kdat, paste('current_Kdat_', chooz,'.csv', sep=''),row.names=FALSE)
 rm(list=c('s','stp','Studs','Tempr','K_Lin_Init','K1_Init','K2_Init','alpha_Init','Chgpt_Init','Chgpt.L','check','chuck','Chgconc','Chglconc','Time','lnConc','newdat','Fits','torun','Type'))
