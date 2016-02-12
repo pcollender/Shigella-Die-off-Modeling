@@ -27,12 +27,12 @@ CerfReg=function(Data,Exper){
     Yvals<-c(lnConc[Time==Xvals[1]],lnConc[Time==Xvals[2]])
     
     K1init<-(lnConc[Time==0]-Yvals[1])/Xvals[1]
-    if (is.nan(K1init)){
+    if (is.null(K1init)){
       K1init<-(lnConc[Time==0]-Yest)/Xest
     }
     
     K2init<-(Yvals[2]-lnConc[length(lnConc)])/(max(Time)-Xvals[2])
-    if (is.nan(K2init)){
+    if (is.null(K2init)){
       K2init<-(Yest-lnConc[length(lnConc)])/(max(Time)-Xest)
     }
     c=exp((K1init-K2init)*Xest)
