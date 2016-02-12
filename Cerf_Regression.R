@@ -8,7 +8,6 @@
 #Per the terms of this license, if you are making derivative use of this work, you must identify that your work is a derivative work, 
 #give credit to the original work, provide a link to the license, and indicate changes that were made.
 
-#File is saved as Cerf_Regression.R
 
 CPest=function(alpha,k1,k2){
   log(alpha/(1-alpha))/(k1-k2)
