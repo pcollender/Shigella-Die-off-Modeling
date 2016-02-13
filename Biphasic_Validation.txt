@@ -1,0 +1,29 @@
+#This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License 
+#<http://creativecommons.org/licenses/by-nc/4.0/> by Philip Collender, Christopher Hoover, Howard Chang,
+#and Justin Remais. This work was supported in part by the National Institutes of Health/National Science 
+#Foundation Ecology of Infectious Disease program funded by the Fogarty International Center (grant R01TW010286), 
+#the National Institute of Allergy and Infectious Diseases (grant K01AI091864), and the National Science Foundation 
+#Water Sustainability and Climate Program (grant 1360330).
+
+#Per the terms of this license, if you are making derivative use of this work, you must identify that your work is a derivative work, 
+#give credit to the original work, provide a link to the license, and indicate changes that were made.
+
+model{
+	for (i in 1:Nobs){
+		ln_Conc[i]~dnorm(mu.ln_Conc[i], tau.ln_Conc[i])
+		mu.ln_Conc[i]<-mu.ln_Conc0+log(alpha*exp(-Time[i]*K1)+(1-alpha)*exp(-Time[i]*K2))
+		}
+
+	mu.ln_Conc0~dnorm(ln_Conc0,tau.ln_Conc0)
+	logit(alpha)<-(K1-K2)*Chgpt
+	K1~dnorm(mu.K1,tau.K1)
+	K2<-K1-exp(diff)
+	diff~dnorm(mu.diff, tau.diff)T(,21) #Truncation to prevent numerical overflow in some downstream processing steps in R
+
+	mu.K1~dnorm(0,1.E-6)
+	tau.K1~dgamma(1.E-6,1.E-6)
+  	mu.diff~dnorm(0,1E-2)
+	tau.diff~dgamma(1.E-6,1.E-6)
+	
+	Chgpt~dunif(Chgpt_lower,Chgpt_upper)
+	}
