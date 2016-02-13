@@ -71,3 +71,6 @@ https://github.com/pcollender/Shigella-Die-off-Modeling/files/64706/Shigella.K.v
 A model to estimate uncertainty around a monophasic die-off rate parameter for experiments where uncertainty around time-to-90%
 inactivation (T90) is provided.
 
+###Biphasic_Validation.txt
+
+Called by Biphasic_Class_Validation.R to refine the classification of experimental data as biphasic or monophasic
