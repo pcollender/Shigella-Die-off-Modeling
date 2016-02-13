@@ -30,3 +30,5 @@ Short function to read in experimental data to the work environment.
 #First_Guess_K&Alpha_Gen.R:
 Function to run Cerf_Regression.R for each experiment and save experiment summary statistics and initial parameter estimates in a separate data frame and csv file
 
+#Biphasic_Class_Validation.R
+Feeds experimental data initially identified as biphasic to the JAGS model Biphasic_Validation.txt to refine classification of biphasic data. Any experimental data for which the changepoint is found to have an approximately uniform distribution (i.e. the model couldn't strongly identify the position at which the rate of die-off switched from one phase to the next, defined here by the 95% posterior confidence interval being 85% or more of the size of the possible range of values), is reclassified as monophasic data.
