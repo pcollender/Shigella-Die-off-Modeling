@@ -22,10 +22,11 @@ Function used to get initial estimates of rate parameters (k1, k2),
 as well as population proportion (alpha) subject to each rate parameter underlying biphasic die-off data. Convergence for the 
 formula is a bit tricky, so the user is asked to guess y and x coordinates of point where change in slope is greatest 
 to allow for informed initial estimates of the parameters. Regression results, as well as a monophasic regression, 
-are plotted so that the user may assess how well they appear to fit the data. In cases where convergence cannot be attained due to floating point errors in R, user may enter coordinates for the change point until there is satisfactory agreement between the resultant plotted functions and die-off data, and save the parameters resulting from these coordinates. Finally, the user is asked to identify a reasonable lower cutoff for the time at which the changepoint occurs in each biphasic experiment. This is used later on to improve the results of MCMC analyses.
+are plotted so that the user may assess how well they appear to fit the data. In cases where convergence cannot be attained due to floating point errors in R, user may enter coordinates for the change point until there is satisfactory agreement between the resultant plotted functions and die-off data, and save the parameters resulting from these coordinates. Finally, the user is asked to identify a reasonable lower cutoff for the time at which the changepoint occurs in each biphasic experiment. This is used later on to improve the results of MCMC analyses. Called by First_Guess_K&Alpha_Gen.R.
 
 #Exp_Data_Reader.R:
 Short function to read in experimental data to the work environment.
+Called by First_Guess_K&Alpha_Gen.R, Biphasic_Class_Validation.R, First_Guess_Lambda&K[ref].R
 
 #First_Guess_K&Alpha_Gen.R:
 Function to run Cerf_Regression.R for each experiment and save experiment summary statistics and initial parameter estimates in a separate data frame and csv file
@@ -33,5 +34,5 @@ Function to run Cerf_Regression.R for each experiment and save experiment summar
 #Biphasic_Class_Validation.R
 Feeds experimental data initially identified as biphasic to the JAGS model Biphasic_Validation.txt to refine classification of biphasic data. Any experimental data for which the changepoint is found to have an approximately uniform distribution (i.e. the model couldn't strongly identify the position at which the rate of die-off switched from one phase to the next, defined here by the 95% posterior confidence interval being 85% or more of the size of the possible range of values), is reclassified as monophasic data.
 
-#First_Guess_Lambda&K[ref]
+#First_Guess_Lambda&K[ref].R
 Uses simple regression to guess initial values of K1 and K2 at 20 degrees C, as well as lambda 1 and lambda 2. Called by _______________________________________
