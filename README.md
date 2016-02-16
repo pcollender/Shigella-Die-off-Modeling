@@ -32,3 +32,6 @@ Function to run Cerf_Regression.R for each experiment and save experiment summar
 
 #Biphasic_Class_Validation.R
 Feeds experimental data initially identified as biphasic to the JAGS model Biphasic_Validation.txt to refine classification of biphasic data. Any experimental data for which the changepoint is found to have an approximately uniform distribution (i.e. the model couldn't strongly identify the position at which the rate of die-off switched from one phase to the next, defined here by the 95% posterior confidence interval being 85% or more of the size of the possible range of values), is reclassified as monophasic data.
+
+#First_Guess_Lambda&K[ref]
+Uses simple regression to guess initial values of K1 and K2 at 20 degrees C, as well as lambda 1 and lambda 2. Called by _______________________________________
