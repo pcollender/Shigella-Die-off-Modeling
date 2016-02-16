@@ -38,7 +38,7 @@ MCMCCerf<-function(data,kdata,experiment){
   Chgpt_lower=KDAT$Chgpt.L
   Chgpt_upper=Time[length(Time)]
   if(KDAT$Chgpt_Init<Chgpt_lower){
-    KDAT$Chgpt_Init=Chgpt_lower+.1
+    KDAT$Chgpt_Init=Chgpt_lower+.1*Chgpt_lower
   }
   
   dat<-list('Time'=Time,'ln_Conc'=ln_Conc,'Nobs'=Nobs,'tau.ln_Conc'=Prec,'Chgpt_lower'=Chgpt_lower,
@@ -49,7 +49,7 @@ MCMCCerf<-function(data,kdata,experiment){
     for (i in 1:3){
       inips[[i]]=list(K1=rnorm(1,KDAT$K1_Init,.1),diff=log(abs(rnorm(1,KDAT$K1_Init,.1)-rnorm(1,KDAT$K2_Init,.1))),
                       mu.K1=rnorm(1,KDAT$K1_Init,.1),mu.diff=log(abs(rnorm(1,KDAT$K1_Init,.1)-rnorm(1,KDAT$K2_Init,.1))),
-                      Chgpt=KDAT$Chgpt_Init+rnorm(1,0,.001),
+                      Chgpt=KDAT$Chgpt_Init+rnorm(1,0,.001*Chgpt_lower),
                       tau.K1=rgamma(1,shape=.1, scale=.000001),tau.diff=rgamma(1,shape=.1, scale=.000001))
       }
     return(inips)
