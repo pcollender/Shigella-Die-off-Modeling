@@ -13,50 +13,50 @@ model{
 #Observation Level
 for (i in 1:Nobs){
 	#Uncertainties
-	ln_Conc[i]~dnorm(ln_concmu[i], concPrec[i])
+	ln_Conc[i]~dnorm(mu.ln_Conc[i], tau.ln_Conc[i])
 	
 	#Interrelationships
-	ln_concmu[i]<-ln_Conc0[Exp[i]]+log(alpha[Exp[i]]*exp(-k1[Exp[i]]*Time[i])+(1-alpha[Exp[i]])*exp(-k2[Exp[i]]*Time[i]))+ErrC[i]
+	mu.ln_Conc[i]<-ln_Conc0[Exp[i]]+log(alpha[Exp[i]]*exp(-K1[Exp[i]]*Time[i])+(1-alpha[Exp[i]])*exp(-K2[Exp[i]]*Time[i]))+ErrC[i]
 	
-	ErrC[i]~dnorm(0,1.E-1)
+	ErrC[i]~dnorm(0,1.E-2)
 	}
 #Experiment Level
-for (j in 1:Nexps){
+for (j in 1:NExps){
 	#Uncertainties
 	#Make mu.ln_Conc0 and tau.ln_Conc0 fixed	
 	ln_Conc0[j]~dnorm(mu.ln_Conc0[j], tau.ln_Conc0[j])
 		
 	#Interrelationships
-	k1[j]<-k1_20*exp(lambda1*(Temp[j]-20))+Errk1[j]
-	k2[j]<-k2_20*exp(lambda2*(Temp[j]-20))+Errk2[j]
+	K1[j]~dnorm(mu.K1[j],tau.K1[j])
+        mu.K1[j]<-K1_20*exp(lambda1*(Temp[j]-20))
+
+	K2[j]~dnorm(mu.K2[j],tau.K2[j])T(,K1[j])
+
+	mu.K2[j]<-K2_20*exp(lambda2*(Temp[j]-20))
 	
-	Errk1[j]~dnorm(mu.Errk1[Stud[j]],1E-1)
-	Errk2[j]~dnorm(mu.Errk2[Stud[j]],1E-1)
+	tau.K1[j]~dgamma(1.E-5,1.E-5)
+	tau.K2[j]~dgamma(1.E-5,1.E-5)
 	}
-for (j in 1:Nexpsbiph){
-	logit(alpha[j])<-(k1[j]-k2[j])*Chgpt
+for (j in 1:NExpsBiph){
+	logit(alpha[j])<-(K1[j]-K2[j])*Chgpt[j]
 	Chgpt[j]~dunif(Chgpt.L[j],Chgpt.U[j])
 	}
-for (j in Monoexpstart:Nexps){
-	alpha[j]~dbern(theta.alpha[Stud[j]])
+for (j in MonoExpStart:NExps){
+	alpha[j]<-Flip[j]
+	Flip[j]~dbern(theta.alpha[Stud[j]])
 	}
 
 #Study level priors
-for (k in 1:Nstud){
-	mu.Errk1[k]~dnorm(0,1.E-3)
-	mu.Errk2[k]~dnorm(0,1.E-3)
-	}
-for (k in Monostudstart:Nstud){
+for (k in MonoStudStart:NStud){
 	theta.alpha[k]~dbeta(1,1)
 	}
 
 #Universal priors	
-k1_20~dnorm(0,1.E-6)
-k2_20<-k1_20-delt
-delt<-exp(delta)
-delta~dnorm(0,1.E-6)
-lambda1~dnorm(0,1.E-6)
-lambda2~dnorm(0,1.E-6)
+K1_20~dnorm(0,1.E-6)
+K2_20~dnorm(0,1.E-6)#T(,K1_20)
+#<-K1_20-delt
+#delt<-exp(delta)
+#delta~dnorm(0,1.E-3)
+lambda1~dnorm(0,1.E-3)
+lambda2~dnorm(0,1.E-3)T(,lambda1)
 }
-
-
